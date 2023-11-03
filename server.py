@@ -21,5 +21,10 @@ def post_request_handler():
 def get_request_handler():
     return jsonify(data_store)
 
+# Define a route that shows hello world
+@app.route('/')
+def index():
+    return jsonify({"message": "Hello World!"})
+
 if __name__ == '__main__':
     app.run(debug=True)
