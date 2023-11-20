@@ -21,6 +21,13 @@ def post_request_handler():
 def get_request_handler():
     return jsonify(data_store)
 
+# Define a route that resets the data_store
+@app.route('/reset_endpoint', methods=['POST'])
+def reset_request_handler():
+    global data_store
+    data_store = []  # Clear the data store
+    return jsonify({"message": "Data store reset successfully"}), 200
+
 # Define a route that shows hello world
 @app.route('/')
 def index():
