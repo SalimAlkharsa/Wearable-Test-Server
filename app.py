@@ -24,6 +24,7 @@ def get_request_handler():
 # Define a route that resets the data_store
 @app.route('/reset_endpoint', methods=['POST'])
 def reset_request_handler():
+    # curl -X POST https://i-want-to-pass-capstone-96abfc16411c.herokuapp.com/reset_endpoint
     global data_store
     data_store = []  # Clear the data store
     return jsonify({"message": "Data store reset successfully"}), 200
