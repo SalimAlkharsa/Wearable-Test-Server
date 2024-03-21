@@ -54,23 +54,25 @@ class Database:
                 r_z = item.get('r_z')[0] if item.get('r_z') else None
                 temperature = item.get('temperature')[0] if item.get('temperature') else None
                 pressure = item.get('pressure')[0] if item.get('pressure') else None
+                heart_rate = item.get('hr')[0] if item.get('hr') else None
                 user_id = item.get('user_id')[0] if item.get('user_id') else None
 
                 # Check if the exact data already exists in the database
                 self.cursor.execute("""
                     SELECT * FROM sensors
-                    WHERE timestamp = %s AND user_id = %s AND a_x = %s AND a_y = %s AND a_z = %s
+                    WHERE timestamp = %s AND a_x = %s AND a_y = %s AND a_z = %s
                     AND r_x = %s AND r_y = %s AND r_z = %s AND temperature = %s AND pressure = %s
-                """, (timestamp, user_id, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure))
+                    AND hr = %s AND user_id = %s
+                """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
 
                 existing_data = self.cursor.fetchone()
 
                 # If the exact data doesn't exist, insert it into the database
                 if not existing_data:
                     self.cursor.execute("""
-                        INSERT INTO sensors (timestamp, user_id, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure)
+                        INSERT INTO sensors (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, hr, user_id)
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    """, (timestamp, user_id, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure))
+                    """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
 
             # Commit the changes
             self.connection.commit()
@@ -96,8 +98,8 @@ def post_request_handler():
 
         #data_store.insert(data)  # Store the posted data
         # Now insert the data into the database
-        #db = Database()
-        #db.insert(data)
+        db = Database()
+        db.insert(data)
         return jsonify({"message": "Received POST and inserted request", "data": data}), 200
     # TO DO ADD MORE ERROR HANDLING CODE
     else:
