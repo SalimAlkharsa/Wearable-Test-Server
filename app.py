@@ -46,7 +46,7 @@ class Database:
             # Iterate through the data and insert each entry
             for item in data:
                 timestamp = item.get('my_timestamp')[0] if item.get('my_timestamp') else None
-                a_x = item.get('a_x')[0] if item.get('a_x') else None
+                a_x = item.get('a_x') if item.get('a_x') else None
                 a_y = item.get('a_y')[0] if item.get('a_y') else None
                 a_z = item.get('a_z')[0] if item.get('a_z') else None
                 r_x = item.get('r_x')[0] if item.get('r_x') else None
