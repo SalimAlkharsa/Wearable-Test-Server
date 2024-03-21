@@ -9,7 +9,7 @@ app = Flask(__name__)
 class DataStore:
     def __init__(self):
         self.data = []
-        self.max_size = 100
+        self.max_size = 1000*10 # Maximum number of entries the data store can hold
 
     def insert(self, data):
         '''
@@ -76,7 +76,7 @@ class Database:
             self.connection.commit()
 
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Database Error: {e}")
             self.connection.rollback()  # Rollback the transaction in case of an error
 
     def close(self):
@@ -124,7 +124,7 @@ def index():
     return jsonify({"message": "Hello World!"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
 
 
 '''
