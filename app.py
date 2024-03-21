@@ -93,10 +93,11 @@ def post_request_handler():
     # Check if the request contains JSON data
     if request.is_json:
         data = request.get_json()
-        data_store.insert(data)  # Store the posted data
+
+        #data_store.insert(data)  # Store the posted data
         # Now insert the data into the database
-        db = Database()
-        db.insert(data)
+        #db = Database()
+        #db.insert(data)
         return jsonify({"message": "Received POST and inserted request", "data": data}), 200
     # TO DO ADD MORE ERROR HANDLING CODE
     else:
