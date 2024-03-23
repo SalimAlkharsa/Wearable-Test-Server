@@ -44,37 +44,34 @@ class Database:
         '''
         try:
             # Iterate through the data and insert each entry
-            for item in data:
-                print(data)
-                print(data[-1])
-                timestamp = item.get('my_timestamp')[0] if item.get('my_timestamp') else None
-                a_x = item.get('a_x')[0] if item.get('a_x') else None
-                a_y = item.get('a_y')[0] if item.get('a_y') else None
-                a_z = item.get('a_z')[0] if item.get('a_z') else None
-                r_x = item.get('r_x')[0] if item.get('r_x') else None
-                r_y = item.get('r_y')[0] if item.get('r_y') else None
-                r_z = item.get('r_z')[0] if item.get('r_z') else None
-                temperature = item.get('temperature')[0] if item.get('temperature') else None
-                pressure = item.get('pressure')[0] if item.get('pressure') else None
-                heart_rate = item.get('hr')[0] if item.get('hr') else None
-                user_id = item.get('user_id')[0] if item.get('user_id') else None
+            timestamp = data.get('my_timestamp')[0] if data.get('my_timestamp') else None
+            a_x = data.get('a_x')[0] if data.get('a_x') else None
+            a_y = data.get('a_y')[0] if data.get('a_y') else None
+            a_z = data.get('a_z')[0] if data.get('a_z') else None
+            r_x = data.get('r_x')[0] if data.get('r_x') else None
+            r_y = data.get('r_y')[0] if data.get('r_y') else None
+            r_z = data.get('r_z')[0] if data.get('r_z') else None
+            temperature = data.get('temperature')[0] if data.get('temperature') else None
+            pressure = data.get('pressure')[0] if data.get('pressure') else None
+            heart_rate = data.get('hr')[0] if data.get('hr') else None
+            user_id = data.get('user_id')[0] if data.get('user_id') else None
 
-                # Check if the exact data already exists in the database
+            # Check if the exact data already exists in the database
+            self.cursor.execute("""
+                SELECT * FROM sensors
+                WHERE timestamp = %s AND a_x = %s AND a_y = %s AND a_z = %s
+                AND r_x = %s AND r_y = %s AND r_z = %s AND temperature = %s AND pressure = %s
+                AND hr = %s AND user_id = %s
+            """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
+
+            existing_data = self.cursor.fetchone()
+
+            # If the exact data doesn't exist, insert it into the database
+            if not existing_data:
                 self.cursor.execute("""
-                    SELECT * FROM sensors
-                    WHERE timestamp = %s AND a_x = %s AND a_y = %s AND a_z = %s
-                    AND r_x = %s AND r_y = %s AND r_z = %s AND temperature = %s AND pressure = %s
-                    AND hr = %s AND user_id = %s
+                    INSERT INTO sensors (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, hr, user_id)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
-
-                existing_data = self.cursor.fetchone()
-
-                # If the exact data doesn't exist, insert it into the database
-                if not existing_data:
-                    self.cursor.execute("""
-                        INSERT INTO sensors (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, hr, user_id)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
 
             # Commit the changes
             self.connection.commit()
