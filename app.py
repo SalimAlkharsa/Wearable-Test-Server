@@ -45,7 +45,6 @@ class Database:
         try:
             # Iterate through the data and insert each entry
             timestamp = data.get('my_timestamp')[0] if data.get('my_timestamp') else None
-            timestamp = "to_timestamp('" + timestamp + "', 'YYYY-MM-DD HH24:MI:SS.US')"
             a_x = data.get('a_x')[0] if data.get('a_x') else None
             a_y = data.get('a_y')[0] if data.get('a_y') else None
             a_z = data.get('a_z')[0] if data.get('a_z') else None
@@ -71,7 +70,7 @@ class Database:
             if not existing_data:
                 self.cursor.execute("""
                     INSERT INTO sensors (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, hr, username)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
 
             # Commit the changes
