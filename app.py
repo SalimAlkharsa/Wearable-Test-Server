@@ -45,7 +45,8 @@ class Database:
         try:
             # Iterate through the data and insert each entry
             for item in data:
-                print(item)
+                print(item[0])
+                print(item[-1])
                 timestamp = item.get('my_timestamp')[0] if item.get('my_timestamp') else None
                 a_x = item.get('a_x')[0] if item.get('a_x') else None
                 a_y = item.get('a_y')[0] if item.get('a_y') else None
