@@ -61,7 +61,7 @@ class Database:
                 SELECT * FROM sensors
                 WHERE timestamp = %s AND a_x = %s AND a_y = %s AND a_z = %s
                 AND r_x = %s AND r_y = %s AND r_z = %s AND temperature = %s AND pressure = %s
-                AND hr = %s AND user_id = %s
+                AND hr = %s AND username = %s
             """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
 
             existing_data = self.cursor.fetchone()
