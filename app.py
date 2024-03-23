@@ -69,7 +69,7 @@ class Database:
             # If the exact data doesn't exist, insert it into the database
             if not existing_data:
                 self.cursor.execute("""
-                    INSERT INTO sensors (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, hr, user_id)
+                    INSERT INTO sensors (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, hr, username)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, (timestamp, a_x, a_y, a_z, r_x, r_y, r_z, temperature, pressure, heart_rate, user_id))
 
