@@ -61,7 +61,7 @@ class Database:
             if not existing_data:
                 self.cursor.execute("""
                     INSERT INTO sensors (timestamp, username, hr, label)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (%s, %s, %s, %s)
                 """, (timestamp, user_id, heart_rate, label))
 
             # Commit the changes
