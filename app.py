@@ -53,7 +53,7 @@ class Database:
             self.cursor.execute("""
                 SELECT * FROM data
                 WHERE timestamp = %s AND username = %s AND hr = %s AND label = %s
-            """, (timestamp, heart_rate, user_id, label))
+            """, (timestamp, user_id, heart_rate, label))
 
             existing_data = self.cursor.fetchone()
 
