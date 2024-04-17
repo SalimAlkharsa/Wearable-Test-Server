@@ -50,6 +50,7 @@ class Database:
             label = data.get('label')[0] if data.get('label') else None
 
             # Swap out the mac address for the actual user_id
+            user_id = str(user_id)
             self.cursor.execute("""
                 SELECT username FROM registry
                 WHERE mcu_id = '%s' """,user_id)
