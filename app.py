@@ -44,13 +44,12 @@ class Database:
         '''
         try:
             # Iterate through the data and insert each entry
-            
-            
-            timestamp = data.get('my_timestamp') if data.get('my_timestamp') else None
-            user_id = data.get('user_id') if data.get('user_id') else None
-            heart_rate = data.get('hr') if data.get('hr') else None
-            label = data.get('label') if data.get('label') else None
+            timestamp = data.get('my_timestamp')[0] if data.get('my_timestamp') else None
+            user_id = data.get('user_id')[0] if data.get('user_id') else None
+            heart_rate = data.get('hr')[0] if data.get('hr') else None
+            label = data.get('label')[0] if data.get('label') else None
 
+            print("This works 1!")
 
             # Check if the exact data already exists in the database
             self.cursor.execute("""
@@ -58,18 +57,19 @@ class Database:
                 WHERE timestamp = %s AND username = %s AND hr = %s AND label = %s
             """, (timestamp, user_id, int(heart_rate), label))
 
+            print("This works 1!")
             existing_data = self.cursor.fetchone()
-
+            print("This works 1!")
             # If the exact data doesn't exist, insert it into the database
             if not existing_data:
                 self.cursor.execute("""
                     INSERT INTO sensors (timestamp, username, hr, label)
                     VALUES (%s, %s, %s, %s)
                 """, (timestamp, user_id, int(heart_rate), label))
-
+            print("This works 1!")
             # Commit the changes
             self.connection.commit()
-
+            print("This works 1!")
         except Exception as e:
             print(f"Database Error: {e}")
             self.connection.rollback()  # Rollback the transaction in case of an error
