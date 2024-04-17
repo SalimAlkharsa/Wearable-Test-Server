@@ -53,7 +53,7 @@ class Database:
             user_id = str(user_id)
             self.cursor.execute("""
             SELECT username FROM registry
-            WHERE mcu_id = "fetty_wap" """)
+            WHERE mcu_id = 'fetty_wap' """)
                 
             # Get the username from the registry
             requested_user = self.cursor.fetchone()
