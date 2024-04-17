@@ -45,8 +45,8 @@ class Database:
         try:
             # Iterate through the data and insert each entry
             timestamp = data.get('my_timestamp')[0] if data.get('my_timestamp') else None
-            heart_rate = data.get('hr')[0] if data.get('hr') else None
             user_id = data.get('user_id')[0] if data.get('user_id') else None
+            heart_rate = data.get('hr')[0] if data.get('hr') else None
             label = data.get('label')[0] if data.get('label') else None
 
             # Check if the exact data already exists in the database
@@ -62,7 +62,7 @@ class Database:
                 self.cursor.execute("""
                     INSERT INTO sensors (timestamp, username, hr, label)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """, (timestamp, heart_rate, user_id, label))
+                """, (timestamp, user_id, heart_rate, label))
 
             # Commit the changes
             self.connection.commit()
