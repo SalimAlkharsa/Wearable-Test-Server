@@ -53,7 +53,7 @@ class Database:
             self.cursor.execute("""
                 SELECT * FROM data
                 WHERE timestamp = %s AND username = %s AND hr = %s AND label = %s
-            """, (timestamp, user_id, heart_rate, label))
+            """, (timestamp, user_id, int(heart_rate), label))
 
             existing_data = self.cursor.fetchone()
 
@@ -62,7 +62,7 @@ class Database:
                 self.cursor.execute("""
                     INSERT INTO sensors (timestamp, username, hr, label)
                     VALUES (%s, %s, %s, %s)
-                """, (timestamp, user_id, heart_rate, label))
+                """, (timestamp, user_id, int(heart_rate), label))
 
             # Commit the changes
             self.connection.commit()
