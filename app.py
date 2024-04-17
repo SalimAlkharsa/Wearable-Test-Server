@@ -44,6 +44,7 @@ class Database:
         '''
         try:
             # Iterate through the data and insert each entry
+            print("This works 1!")
             timestamp = data.get('my_timestamp')[0] if data.get('my_timestamp') else None
             user_id = data.get('user_id')[0] if data.get('user_id') else None
             heart_rate = data.get('hr')[0] if data.get('hr') else None
