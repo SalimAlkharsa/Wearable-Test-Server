@@ -52,7 +52,7 @@ class Database:
             # Swap out the mac address for the actual user_id
             self.cursor.execute("""
                 SELECT username FROM registry
-                WHERE mcu_id = '%s' """%user_id)
+                WHERE mcu_id = '%s' """,user_id)
             
             # Get the username from the registry
             requested_user = self.cursor.fetchone()
