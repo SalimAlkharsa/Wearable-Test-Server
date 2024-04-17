@@ -49,6 +49,19 @@ class Database:
             heart_rate = data.get('hr')[0] if data.get('hr') else None
             label = data.get('label')[0] if data.get('label') else None
 
+            # Swap out the mac address for the actual user_id
+            mcu_id = str(user_id)
+            self.execute("""
+                SELECT username FROM registry
+                WHERE mac_id = '%s' """ % mcu_id)
+            
+            # Get the username from the registry
+            requested_user = self.cursor.fetchone()
+            if not requested_user:
+                raise Exception("User not found in registry")
+            else:
+                user_id = requested_user[0]
+
             # Check if the exact data already exists in the database
             self.cursor.execute("""
                 SELECT * FROM data
