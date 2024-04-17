@@ -51,6 +51,7 @@ class Database:
 
             # Swap out the mac address for the actual user_id
             mcu_id = str(user_id)
+            print(f"mcu_id: {mcu_id}")
             self.cursor.execute("""
                 SELECT username FROM registry
                 WHERE mcu_id = %s """ % mcu_id)
