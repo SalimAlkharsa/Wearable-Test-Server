@@ -58,6 +58,10 @@ class Database:
             
             # Get the username from the registry
             requested_user = self.cursor.fetchone()
+
+            # Show the requested user
+            print(f"requested_user: {requested_user}")
+
             if not requested_user:
                 raise Exception("User not found in registry")
             else:
